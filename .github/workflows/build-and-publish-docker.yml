@@ -56,11 +56,11 @@ jobs:
       #    username: ${{ secrets.DOCKERHUB_USERNAME }}
       #    password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: docker.io/${{ env.IMAGE_NAME }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      #- name: Extract metadata (tags, labels) for Docker
+      #  id: meta
+      #  uses: docker/metadata-action@v4
+      #  with:
+      #    images: docker.io/${{ env.IMAGE_NAME }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Extract build metadata to version.json
         run: |
