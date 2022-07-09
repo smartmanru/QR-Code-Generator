@@ -18,10 +18,20 @@ env:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
-    permissions: read-all|write-all
-    #permissions:
-    #  contents: read
-    #  packages: write
+    permissions:
+      contents: write
+      packages: write
+      actions: write
+      checks: write
+      deployments: write
+      id-token: write
+      issues: read
+      discussions: read
+      pages: read
+      pull-requests: read
+      repository-projects: read
+      security-events: read
+      statuses: write
 
     steps:
       - name: Checkout repository
@@ -64,7 +74,7 @@ jobs:
           }
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           #file: Dockerfile
