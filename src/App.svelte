@@ -1,4 +1,6 @@
 <script>
+  import { fly } from "svelte/transition";
+
   import Header from "./lib/Header.svelte";
   import WifiCode, { generateWifiString } from "./lib/WifiCode.svelte";
   import SmsCode, { generateSmsString } from "./lib/SmsCode.svelte";
@@ -82,14 +84,14 @@
     </Card>
   </Cell>
   <Cell spanDevices={{ desktop: 3, tablet: 12, phone: 12 }} style="display: flex;">
-    <div style="margin: auto;">
-      {#if input}
+    {#if input}
+      <div style="margin: auto;" in:fly={{ y: 250, duration: 1000 }} out:fly={{ y: 250, duration: 500 }}>
         <!-- <QR codeValue={input} {size} /> -->
         <QRSVG codeValue={input} {size} {ecl} />
-      {:else}
-        <!-- <p>placeholder</p> -->
-      {/if}
-    </div>
+      </div>
+    {:else}
+      <!-- <p>placeholder</p> -->
+    {/if}
   </Cell>
 </LayoutGrid>
 
