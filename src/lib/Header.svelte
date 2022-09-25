@@ -1,16 +1,30 @@
 <script>
+  import { writable } from "svelte/store";
   import IconButton, { Icon } from "@smui/icon-button";
   import { Svg } from "@smui/common/elements";
   import { mdiThemeLightDark } from "@mdi/js";
 
-  let darkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  export const theme = writable(localStorage.getItem("theme"));
+  theme.subscribe((value) => {
+    localStorage.setItem("theme", value === "dark" ? "dark" : "light");
+  });
+
+  function handleThemeClick() {
+    if ($theme === "dark") {
+      theme.set("light");
+    } else {
+      theme.set("dark");
+    }
+  }
+
+  /* let darkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches; */
 </script>
 
 <svelte:head>
-  {#if darkTheme}
-    <link rel="stylesheet" href="/smui-dark.css" media="screen" />
+  {#if $theme === "dark"}
+    <link rel="stylesheet" href="/smui-dark.css" media="all" />
   {:else}
-    <link rel="stylesheet" href="/smui.css" />
+    <link rel="stylesheet" href="/smui.css" media="all" />
   {/if}
 </svelte:head>
 
@@ -19,7 +33,7 @@
 </div>
 
 <div class="themeSwitch">
-  <IconButton on:click={() => (darkTheme = !darkTheme)}>
+  <IconButton on:click={handleThemeClick}>
     <Icon component={Svg} viewBox="0 0 24 24">
       <path fill="currentColor" d={mdiThemeLightDark} />
     </Icon>
